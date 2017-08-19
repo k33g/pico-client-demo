@@ -1,0 +1,19 @@
+{
+  "name": "pico-client-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k33g/pico-client-demo.git"
+  },
+  "author": "k33g aka @k33g_org",
+  "license": "unlicense",
+  "bugs": {
+    "url": "https://github.com/k33g/pico-client-demo/issues"
+  },
+  "homepage": "https://github.com/k33g/pico-client-demo#readme"
+}
