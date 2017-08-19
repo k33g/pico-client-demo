@@ -22,7 +22,7 @@ let port = process.env.PORT || 9090;
 
 let service = new Service({})
 
-service.get({uri:`/demo`, f: (request, response) => {
+service.get({uri:`/`, f: (request, response) => {
 
   discoveryBackend.getServices({filter: service => service.name == "calc" },  results => {
     results.when({
