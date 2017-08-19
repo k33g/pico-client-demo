@@ -46,6 +46,7 @@ service.get({uri:`/`, f: (request, response) => {
               let result2 = res
               response.sendJson({result1, result2})
             }) 
+            
           }) 
         })
       }
