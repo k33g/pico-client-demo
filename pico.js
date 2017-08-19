@@ -80,15 +80,17 @@ class Client {
   }
 
   healthCheck() {
-
+    
     let serviceurl = url.parse(this.service.domain)
 
+    var path = this.service.registration !== undefined ? `/healthcheck/` + this.service.registration : `/healthcheck`
+    
     return fetch({
       protocol: serviceurl.protocol.slice(0, -1), // remove ":"
       host: serviceurl.hostname,
       port: serviceurl.port,
       method: "GET",
-      path: `/healthcheck`,
+      path: path,
       headers:  {"Content-Type": "application/json; charset=utf-8"}
     }).then(data => {
       return JSON.parse(data)
@@ -228,6 +230,15 @@ class Service {
       method: "GET",
       f: (request, response) => {
         if(record) {
+          let registrationId = request.params[0] 
+          // healthcheck is called by the client with the id of registration
+          // if registrationId <> this.record.registration it's because the
+          // service should be "on" a stopped VM or container
+          if(this.record.registration!==registrationId) {
+            this.record.status = "DOWN"
+          } else {
+            this.record.status = "UP"
+          }
           response.sendJson({
             status: this.record.status, 
             registration: this.record.registration
@@ -567,8 +578,3 @@ module.exports = {
   DiscoveryBackendServer: DiscoveryBackendServer,
   DiscoveryBackend: DiscoveryBackend
 }
-
-
-
-
-
